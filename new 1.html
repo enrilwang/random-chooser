@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>random selector</title>
+
+	
+<!--css file-->	
+<link rel="stylesheet" 
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+	
+
+	
+	
+	
+	
+	
+</head>
+
+
+<body>
+
+
+    <div class="divv">
+        <!--img class="img-thumbnail" alt="头像" id="img" src="image/yuan.jpg"-->
+        <div id="num"></div>
+        <div class="button">
+            <button id="start" class="btn btn-success">Start</button>
+            <button id="stop" class="btn btn-info">End</button>
+        </div>
+    </div>
+
+
+
+    
+    <canvas width=400 height=400 style="background: #0000FF;" id="canvas"></canvas>
+
+    
+
+
+
+
+
+
+
+</body>
+
+
+<style>
+body {
+    overflow: hidden;
+    
+}
+
+.divv {
+    position: absolute;
+    top: 500px;
+    left: 600px;
+    width: 268px;
+    height: 600px;  
+}
+
+#num {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+.button {
+    text-align: center;
+	left: 300px;
+}
+
+#img {
+    width: 268px;
+    height: 271px;
+}
+
+#canvas {
+    
+}
+</style>
+
+
+<script>
+    var num = document.getElementById("num");
+    var img = document.getElementById("img");
+    var start = document.getElementById("start");
+    var stop = document.getElementById("stop");
+   /* var image = [ "image/XX.jpg", "image/zXXn.jpg",
+            "image/XX.jpg", "image/XX.jpg", "image/XX.jpg",
+            "image/XX.jpg" ];*/
+    var arr = [ "粿条", "麦当劳", "麻辣烫", "酸菜鱼", "饺子","面条","肠粉","包子" ];
+    var intv = null;
+
+    start.onclick = function() {
+
+        if (intv == undefined) {
+
+            intv = setInterval(function() {
+                var random = Math.floor(Math.random() * 8);
+                num.innerHTML = arr[random];
+                /*img.src = image[random];*/
+            }, 150);
+
+        }
+		 
+
+    }
+	
+
+    stop.onclick = function() {
+
+        clearInterval(intv);
+
+        intv = null;
+
+    }
+
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var s = window.screen;
+    var w = s.width;
+    var h = s.height;
+    canvas.width = w;
+    canvas.height = h;
+    var fontSize = 14;
+    var clos = Math.floor(w / fontSize);
+    var drops = [];
+    var str = "abcdeeequipposlda";
+    for (var i = 0; i < clos; i++) {
+        drops.push(0);
+    }
+    function drawString() {
+        ctx.fillStyle = "rgba(0,0,0,0.05)"
+        ctx.fillRect(0, 0, w, h);
+		ctx.font = "600 " + fontSize + "px 微软雅黑";
+        ctx.fillStyle = "blue";
+        for (var i = 0; i < clos; i++) {
+            var x = i * fontSize;
+            var y = drops[i] * fontSize;
+            ctx.fillText(str[Math.floor(Math.random() * str.length)], x, y);
+            if (y > h && Math.random() > 0.99) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+
+    }
+    setInterval(drawString, 30);
+</script>
+
+</html>
+
